@@ -1,7 +1,5 @@
 # Book Recommender System KNN
 
-Professionalized version of original course project. Repo now uses clean Python package layout, raw data folder, CLI entry point, and small test suite.
-
 ## Project Structure
 
 ```text
@@ -66,9 +64,3 @@ pytest
 ## Data
 
 Raw CSV files stored in `data/raw/`. Loader expects Book-Crossing dataset filenames already in repo.
-
-## Notes
-
-- Repo refactor removed notebook-export script and replaced it with importable modules.
-- CSV parsing updated for modern pandas.
-- Prediction logic now uses similar books rated by target user instead of mismatched matrix lookup.
