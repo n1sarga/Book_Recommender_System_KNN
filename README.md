@@ -1,7 +1,10 @@
 # Book Recommender System KNN
 
+<<<<<<< HEAD
 This project implements a k-Nearest Neighbors based book recommendation system using the Book-Crossing dataset.
 
+=======
+>>>>>>> 7ebbbce (Refactor README for clarity and conciseness)
 ## Project Structure
 
 ```text
