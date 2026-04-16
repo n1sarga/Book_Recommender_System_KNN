@@ -18,6 +18,11 @@ class BookRecommender:
     n_neighbors: int = 10
 
     def __post_init__(self) -> None:
+        if self.min_user_ratings < 0:
+            raise ValueError("min_user_ratings must be 0 or greater.")
+        if self.n_neighbors < 1:
+            raise ValueError("n_neighbors must be at least 1.")
+
         self.books = self._prepare_books(self.books)
         self.filtered_ratings = self._filter_active_users(self.ratings, self.min_user_ratings)
         self.final_rating = self._build_final_rating(self.filtered_ratings, self.books)
@@ -81,6 +86,9 @@ class BookRecommender:
         return str(int(value)) if float(value).is_integer() else f"{value:.2f}"
 
     def recommend_books_for_user(self, user_id: int, top_n: int = 10) -> list[str]:
+        if top_n < 1:
+            raise ValueError("top_n must be at least 1.")
+
         if user_id not in self.user_book_matrix.index:
             raise ValueError(f"User ID {user_id} not found in recommendation matrix.")
 

@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 
 import pandas as pd
+import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = PROJECT_ROOT / "src"
@@ -57,3 +58,20 @@ def test_predict_book_rating_returns_existing_rating() -> None:
     recommender = build_fixture()
     prediction = recommender.predict_book_rating(1, "A")
     assert prediction == "Already Rated. Rating: 10"
+
+
+def test_recommender_rejects_zero_neighbors() -> None:
+    with pytest.raises(ValueError, match="n_neighbors must be at least 1"):
+        BookRecommender(
+            books=build_fixture().books,
+            users=build_fixture().users,
+            ratings=build_fixture().ratings,
+            min_user_ratings=0,
+            n_neighbors=0,
+        )
+
+
+def test_recommend_books_for_user_rejects_non_positive_top_n() -> None:
+    recommender = build_fixture()
+    with pytest.raises(ValueError, match="top_n must be at least 1"):
+        recommender.recommend_books_for_user(1, top_n=0)
